@@ -26,16 +26,16 @@ private:
     char *buffer;
     int bufferSize;
     int port;
-    bool ready;
+    // bool ready;
 
 public:
     P2PServer(int _port = 1111, int _bs = 1024);
     ~P2PServer();
-    bool standby();
+    bool standby(int timeout = 5);
     int receive(char* buf, int len);
     bool idle();
     void sendStr(const std::string& str);
     void sendData(char *buf, int size);
-    bool isReady() { return ready; }
+    // bool isReady() { return ready; }
 };
 #endif

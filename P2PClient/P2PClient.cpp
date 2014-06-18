@@ -48,17 +48,21 @@ bool P2PClient::connect() {
 }
 
 
-int P2PClient::receive(int len, char *buf) {
+int P2PClient::receive(char *buf, int len) {
     // memset(&buffer2[0], '\0', len);
     int sum = 0;
     while (sum < len) {
         int ret = recv(sock, &buf[sum], len - sum, 0);
-        if (ret <= 0) {
-            std::cerr << "connection error" << std::endl;
-            exit(EXIT_FAILURE);
+        if (ret == SOCKET_ERROR) { /* エラーが発生 */
+            // len=revd_size;
+            return SOCKET_ERROR;
+        } else if (ret == 0) { /* ソケットが切断された */
+            // len=revd_size;
+            return 0;
+        } else {
+            sum += ret;
+            //std::cout << " " << sum << "/" << len;
         }
-        sum += ret;
-        //std::cout << " " << sum << "/" << len;
     }
     return sum;
 }

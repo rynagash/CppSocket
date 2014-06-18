@@ -20,7 +20,7 @@ public:
     P2PClient(const std::string ip = "127.0.0.1", const int pt = 1111);
     ~P2PClient();
     bool connect();
-    int receive(int len, char *buf);
+    int receive(char *buf, int len);
     int sendData(const char *buf, int size);
     int sendStr(const std::string str);
 };

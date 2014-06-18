@@ -1,7 +1,7 @@
 #include "P2PServer.h"
 
 P2PServer::P2PServer(int _port, int _bs) {
-    ready = false;
+    // ready = false;
     port = _port;
     bufferSize = _bs;
     buffer = new char[bufferSize];
@@ -35,8 +35,8 @@ P2PServer::~P2PServer() {
     delete[] buffer;
     std::cout << "destuctor : CServer" << std::endl;
 }
-bool P2PServer::standby() {
-    timeval tv = { 1, 0 };
+bool P2PServer::standby(int timeout) {
+    timeval tv = { timeout, 0 };
     fd_set mask;
     FD_ZERO(&mask);
     FD_SET(srcSocket, &mask);
@@ -62,23 +62,25 @@ bool P2PServer::standby() {
         exit(-1);
     }
 
-    ready = true;
+    // ready = true;
 
     return true;
 }
 int P2PServer::receive(char* buf, int len) {
     int revd_size;
-    int tmp;
+    int ret;
     revd_size = 0;
     while (revd_size < len) {
-        tmp = recv(dstSocket, buf + revd_size, len - revd_size, 0);
-        if (tmp == SOCKET_ERROR) { /* エラーが発生 */
+        ret = recv(dstSocket, buf + revd_size, len - revd_size, 0);
+        if (ret == SOCKET_ERROR) { /* エラーが発生 */
             // len=revd_size;
             return SOCKET_ERROR;
-        } else if (tmp == 0) { /* ソケットが切断された */
+        } else if (ret == 0) { /* ソケットが切断された */
             // len=revd_size;
             return 0;
-        } else revd_size += tmp;
+        } else {
+            revd_size += ret;
+        }
     }
     // *len=revd_size;
     return revd_size;
@@ -93,7 +95,7 @@ bool P2PServer::idle() {
     } else if (numrcv == SOCKET_ERROR) {
         std::cout << "受信エラー" << std::endl;
         std::cout << "エラー" << WSAGetLastError() << "が発生しました" << std::endl;
-        return false;
+        //return false;
         // standby();
     } else {
         std::stringstream ss;
@@ -102,10 +104,10 @@ bool P2PServer::idle() {
         std::string str;
         ss >> str;
         if (str == "ok") {
-            ready = true;
+            //ready = true;
         } else if (str == "99") {
             std::cout << "Client shutdonw" << std::endl;
-            ready = false;
+            //ready = false;
             return false;
         }
     }
@@ -114,10 +116,10 @@ bool P2PServer::idle() {
 }
 
 void P2PServer::sendStr(const std::string& str) {
-    ready = false;
+    //ready = false;
     send(dstSocket, str.c_str(), str.length(), 0);
 }
 void P2PServer::sendData(char *buf, int size) {
-    ready = false;
+    //ready = false;
     send(dstSocket, buf, size, 0);
 }
