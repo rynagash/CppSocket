@@ -9,10 +9,15 @@ int main() {
     char buf[1024];
 
     if (server.standby()) {
-        cout << "send = [ pika ] " << endl;
-        server.sendStr("pika");
-        while (server.receive(buf, 1024) > 0) {
-            cout << "  recv = [ " << buf << " ]" << endl;
+        while (true) {
+            cout << "send = [ pika ] " << endl;
+            server.sendStr("pika");
+            memset(buf, 0, 1024);
+            if (server.receiveSmall(buf, 1024) > 0) {
+                cout << "  recv = [ " << buf << " ]" << endl;
+            } else {
+                break;
+            }
         }
     }
 

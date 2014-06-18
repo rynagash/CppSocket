@@ -72,6 +72,7 @@ int P2PServer::receive(char* buf, int len) {
     revd_size = 0;
     while (revd_size < len) {
         ret = recv(dstSocket, buf + revd_size, len - revd_size, 0);
+        std::cout << ret << std::endl;
         if (ret == SOCKET_ERROR) { /* エラーが発生 */
             // len=revd_size;
             return SOCKET_ERROR;
@@ -82,8 +83,20 @@ int P2PServer::receive(char* buf, int len) {
             revd_size += ret;
         }
     }
-    // *len=revd_size;
     return revd_size;
+}
+
+int P2PServer::receiveSmall(char *buf, int buffer_size) {
+    int ret = recv(dstSocket,buf,buffer_size, 0);
+    if (ret == SOCKET_ERROR) { /* エラーが発生 */
+        // len=revd_size;
+        return SOCKET_ERROR;
+    } else if (ret == 0) { /* ソケットが切断された */
+        // len=revd_size;
+        return 0;
+    } else {
+        return ret;
+    }
 }
 bool P2PServer::idle() {
     memset(buffer, '\0', bufferSize);

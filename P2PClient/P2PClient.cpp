@@ -67,10 +67,23 @@ int P2PClient::receive(char *buf, int len) {
     return sum;
 }
 
+int P2PClient::receiveSmall(char *buf, int buffer_size) {
+    int ret = recv(sock, buf, buffer_size, 0);
+    if (ret == SOCKET_ERROR) { /* エラーが発生 */
+        // len=revd_size;
+        return SOCKET_ERROR;
+    } else if (ret == 0) { /* ソケットが切断された */
+        // len=revd_size;
+        return 0;
+    } else {
+        return ret;
+    }
+}
+
 int P2PClient::sendData(const char *buf, int size) {
     return ::send(sock, buf, size, 0);
 }
 
-int P2PClient::sendStr(const std::string str) {
+int P2PClient::sendStr(const std::string& str) {
     return ::send(sock, str.c_str(), str.length(), 0);
 }

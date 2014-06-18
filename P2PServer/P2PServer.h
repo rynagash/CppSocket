@@ -33,6 +33,7 @@ public:
     ~P2PServer();
     bool standby(int timeout = 5);
     int receive(char* buf, int len);
+    int receiveSmall(char *buf, int buffer_size);
     bool idle();
     void sendStr(const std::string& str);
     void sendData(char *buf, int size);

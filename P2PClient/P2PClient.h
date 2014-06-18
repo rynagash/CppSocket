@@ -21,7 +21,8 @@ public:
     ~P2PClient();
     bool connect();
     int receive(char *buf, int len);
+    int receiveSmall(char *buf, int buffer_size);
     int sendData(const char *buf, int size);
-    int sendStr(const std::string str);
+    int sendStr(const std::string& str);
 };
 #endif
