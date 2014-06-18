@@ -8,7 +8,7 @@
 #pragma comment(lib, "ws2_32.lib")
 
 
-class CClient {
+class P2PClient {
 private:
     WSADATA wsaData;
     struct sockaddr_in server;
@@ -17,8 +17,8 @@ private:
     std::string server_ip;
     int port;
 public:
-    CClient(const std::string ip = "10.0.1.49", const int pt = 9999);
-    ~CClient();
+    P2PClient(const std::string ip = "127.0.0.1", const int pt = 1111);
+    ~P2PClient();
     bool connect();
     int receive(int len, char *buf);
     int sendData(const char *buf, int size);

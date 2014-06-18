@@ -1,6 +1,6 @@
 #include "P2PClient.h"
 
-CClient::CClient(const std::string ip, const int pt) {
+P2PClient::P2PClient(const std::string ip, const int pt) {
     server_ip = ip;
     port = pt;
 
@@ -30,13 +30,13 @@ CClient::CClient(const std::string ip, const int pt) {
     }
 }
 
-CClient::~CClient() {
+P2PClient::~P2PClient() {
     // winsock2‚ÌI—¹ˆ—
     closesocket(sock);
     WSACleanup();
 }
 
-bool CClient::connect() {
+bool P2PClient::connect() {
     std::cout << "connect to " << server_ip.c_str();
     int ret = ::connect(sock, ( struct sockaddr * )&server, sizeof( server ));
     if (ret == SOCKET_ERROR) {
@@ -48,7 +48,7 @@ bool CClient::connect() {
 }
 
 
-int CClient::receive(int len, char *buf) {
+int P2PClient::receive(int len, char *buf) {
     // memset(&buffer2[0], '\0', len);
     int sum = 0;
     while (sum < len) {
@@ -63,10 +63,10 @@ int CClient::receive(int len, char *buf) {
     return sum;
 }
 
-int CClient::sendData(const char *buf, int size) {
+int P2PClient::sendData(const char *buf, int size) {
     return ::send(sock, buf, size, 0);
 }
 
-int CClient::sendStr(const std::string str) {
+int P2PClient::sendStr(const std::string str) {
     return ::send(sock, str.c_str(), str.length(), 0);
 }

@@ -15,7 +15,7 @@
 #define ACTION_UP 1
 #define ACTION_MOVE 2
 
-class CServer {
+class P2PServer {
 private:
     int srcSocket, dstSocket;
     struct sockaddr_in srcAddr, dstAddr;
@@ -29,8 +29,8 @@ private:
     bool ready;
 
 public:
-    CServer(int _port = 1111, int _bs = 1024);
-    ~CServer();
+    P2PServer(int _port = 1111, int _bs = 1024);
+    ~P2PServer();
     bool standby();
     int receive(char* buf, int len);
     bool idle();
