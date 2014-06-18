@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
+    <ClCompile Include="P2PClient.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="P2PClient.cpp">
+    <ClCompile Include="main_test_p2pclient.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

@@ -79,7 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="P2PClient.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="main_test_p2pclient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="P2PClient.h" />
