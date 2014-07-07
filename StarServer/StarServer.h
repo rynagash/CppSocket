@@ -11,10 +11,6 @@
 
 #pragma comment(lib, "ws2_32.lib")
 
-#define ACTION_DOWN 0
-#define ACTION_UP 1
-#define ACTION_MOVE 2
-
 class P2PServer {
 private:
     int srcSocket, dstSocket;
